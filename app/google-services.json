@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "682101780516",
+    "project_id": "agendos-001",
+    "storage_bucket": "agendos-001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682101780516:android:0e52161d36cdba87b4e8b1",
+        "android_client_info": {
+          "package_name": "com.galvezssr.agendos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682101780516-kc5me3e5viv3af1btiqn379d150h8jr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgThfOIEzCY5GjcKMLUd5Hvz6qTOHN6Ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682101780516-kc5me3e5viv3af1btiqn379d150h8jr9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
