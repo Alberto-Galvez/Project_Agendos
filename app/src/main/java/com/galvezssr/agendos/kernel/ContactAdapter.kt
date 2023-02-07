@@ -9,6 +9,13 @@ import com.galvezssr.agendos.R
 
 class ContactAdapter(var contactos: List<Contact>): RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
+    ////////////////////////////////////////////////////
+    // VARIABLES ///////////////////////////////////////
+    ////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////
+    // FUNCIONES ///////////////////////////////////////
+    ////////////////////////////////////////////////////
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.contact_view, parent, false)
         return ViewHolder(view)
@@ -21,13 +28,16 @@ class ContactAdapter(var contactos: List<Contact>): RecyclerView.Adapter<Contact
 
         holder.nombre.text = contacto.nombre
         holder.telefono.text = contacto.telefono
-//      holder.imagen
+
     }
 
+    ////////////////////////////////////////////////////
+    // MINI-CLASES /////////////////////////////////////
+    ////////////////////////////////////////////////////
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-//      val imagen = view.findViewById<ImageView>(R.id.imagen)
-        val nombre = view.findViewById<TextView>(R.id.nombre)
-        val telefono = view.findViewById<TextView>(R.id.telefono)
+
+        val nombre: TextView = view.findViewById(R.id.nombre)
+        val telefono: TextView = view.findViewById(R.id.telefono)
 
 
     }

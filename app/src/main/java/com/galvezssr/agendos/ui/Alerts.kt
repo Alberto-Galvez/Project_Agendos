@@ -1,9 +1,10 @@
 package com.galvezssr.agendos.ui
 
-import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+
+/** Este archivo contiene funciones extras que extienden de la clase que le indiquemos al principio **/
 
 fun AppCompatActivity.showEmptyToast() {
     Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show()

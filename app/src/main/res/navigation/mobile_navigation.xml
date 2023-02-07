@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_create_contact"
-        android:name="com.galvezssr.agendos.ui.gallery.CreateContactFragment"
+        android:name="com.galvezssr.agendos.ui.create.CreateContactFragment"
         android:label="Crear contacto"
         tools:layout="@layout/fragment_create_contact" />
 

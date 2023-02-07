@@ -1,29 +1,21 @@
 package com.galvezssr.agendos.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.galvezssr.agendos.kernel.Contact
-import com.google.firebase.firestore.FirebaseFirestore
+import com.galvezssr.agendos.kernel.DbFirestore
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(usuarioActual: String) : ViewModel() {
 
     ////////////////////////////////////////////////////
     // VARIABLES ///////////////////////////////////////
     ////////////////////////////////////////////////////
 
-    // Barra de progreso
-    private val _estadoCarga = MutableLiveData(false)
+    private lateinit var listaContactos: List<Contact>
 
     // Recycler del Fragment
     private val _listaResultante = MutableLiveData<List<Contact>>(emptyList())
 
-    // Firestore BBDD
-    private val bbdd = FirebaseFirestore.getInstance()
-
-    private val listaContactos = mutableListOf<Contact>()
 
     ////////////////////////////////////////////////////
     // INCIALIZADOR ////////////////////////////////////
@@ -35,24 +27,10 @@ class HomeViewModel : ViewModel() {
          * mientras que el Fragment se encarga de escuchar cuando los datos se han modificado, para asi
          * aplicar los nuevos valores en el XML **/
         viewModelScope.launch {
-            _estadoCarga.value = true
 
-            bbdd.collection("contactos").get().addOnSuccessListener {
-                for (document in it) {
-                    val contacto = document.toObject(Contact::class.java)
-
-                    contacto.nombre = document["nombre"].toString()
-                    contacto.telefono = document["telefono"].toString()
-                    contacto.email = document["email"].toString()
-                    contacto.descripcion = document["descripcion"].toString()
-
-                    listaContactos.add(contacto)
-                }
-
-                _listaResultante.postValue(listaContactos)
-            }
-
-            _estadoCarga.value = false
+            /** Obtenemos la lista de contactos de la BBDD segun el usuario con el que estemos logueados **/
+            listaContactos = DbFirestore.getContactsFromUser(usuarioActual)
+            _listaResultante.postValue(listaContactos)
         }
     }
 
@@ -60,6 +38,12 @@ class HomeViewModel : ViewModel() {
     // GETTERS /////////////////////////////////////////
     ////////////////////////////////////////////////////
 
-    fun getEstadoCarga(): LiveData<Boolean> = _estadoCarga
     fun getListaResultante(): LiveData<List<Contact>> = _listaResultante
+}
+
+@Suppress("UNCHECKED_CAST")
+class HomeViewModelFactory(private val usuarioActual: String): ViewModelProvider.Factory{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return HomeViewModel(usuarioActual) as T
+    }
 }

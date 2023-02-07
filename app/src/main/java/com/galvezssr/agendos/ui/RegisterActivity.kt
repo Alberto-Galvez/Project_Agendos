@@ -3,8 +3,9 @@ package com.galvezssr.agendos.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.galvezssr.agendos.databinding.ActivityRegisterBinding
+import com.galvezssr.agendos.kernel.DbFirestore
+import com.galvezssr.agendos.kernel.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity: AppCompatActivity() {
 
@@ -17,8 +18,9 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var phone: String
     private lateinit var email: String
     private lateinit var password: String
+    private lateinit var user: User
 
-    private lateinit var bbdd: FirebaseFirestore
+    private val auth = FirebaseAuth.getInstance()
 
     ////////////////////////////////////////////////////
     // FUNCIONES ///////////////////////////////////////
@@ -33,7 +35,6 @@ class RegisterActivity: AppCompatActivity() {
     }
 
     private fun setup(binding: ActivityRegisterBinding) {
-        bbdd = FirebaseFirestore.getInstance()
 
         binding.botonRegistrar.setOnClickListener {
 
@@ -47,20 +48,14 @@ class RegisterActivity: AppCompatActivity() {
                 email = binding.campoEmail.text.toString()
                 password = binding.campoPassword.text.toString()
 
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                user = User(name, lastname, phone, email, password)
 
+                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+
+                    /** Si no existe un usuario en la BBDD con ese email y contraseña... **/
                     if (it.isSuccessful) {
-                        val usuario = hashMapOf(
-                            "nombre" to name,
-                            "apellidos" to lastname,
-                            "telefono" to phone,
-                            "email" to email,
-                            "password" to password
-                        )
+                        DbFirestore.createUser(user, this)
 
-                        bbdd.collection("usuarios").add(usuario)
-
-                        showAlert("Info", "Usuario creado correctamente")
                     } else
                         showAlert("Error", "Ya existe un usuario con el mismo email")
                 }

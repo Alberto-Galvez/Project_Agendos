@@ -1,11 +1,8 @@
 package com.galvezssr.agendos.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.galvezssr.agendos.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,6 +14,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var email: String
     private lateinit var password: String
+
+    private val auth = FirebaseAuth.getInstance()
 
     ////////////////////////////////////////////////////
     // FUNCIONES ///////////////////////////////////////
@@ -35,14 +34,13 @@ class LoginActivity : AppCompatActivity() {
         // BOTON DE ACCESO
         binding.botonAcceder.setOnClickListener {
 
-            /** Lo mismo que lo anterior, solo que este es para acceder con email y
-             * contraseñas existentes **/
+            /** Entrara en la condicion solo si los campos no estan vacios **/
             if (binding.campoEmail.text.isNotEmpty() && binding.campoPassword.text.isNotEmpty()) {
 
                 email = binding.campoEmail.text.toString()
                 password = binding.campoPassword.text.toString()
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
 
                         if (it.isSuccessful)
                             naviagteToMainActivity(email)
