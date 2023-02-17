@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.galvezssr.agendos.R
 
-class ContactAdapter(var contactos: List<Contact>): RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+class ContactAdapter(val listener: (Contact) -> Unit): RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
     ////////////////////////////////////////////////////
     // VARIABLES ///////////////////////////////////////
     ////////////////////////////////////////////////////
+
+    var contactos = emptyList<Contact>()
 
     ////////////////////////////////////////////////////
     // FUNCIONES ///////////////////////////////////////
@@ -28,6 +30,10 @@ class ContactAdapter(var contactos: List<Contact>): RecyclerView.Adapter<Contact
 
         holder.nombre.text = contacto.nombre
         holder.telefono.text = contacto.telefono
+
+        holder.itemView.setOnClickListener {
+            listener(contacto)
+        }
 
     }
 

@@ -6,10 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.galvezssr.agendos.R
 import com.galvezssr.agendos.databinding.FragmentListBinding
+import com.galvezssr.agendos.kernel.Contact
 import com.galvezssr.agendos.kernel.ContactAdapter
+import com.galvezssr.agendos.ui.detailFragment.DetailFragment
 
 class HomeFragment : Fragment() {
 
@@ -17,7 +22,6 @@ class HomeFragment : Fragment() {
     // VARIABLES ///////////////////////////////////////
     ////////////////////////////////////////////////////
 
-    private lateinit var adapter: ContactAdapter
     private lateinit var app: AppCompatActivity
 
     private var _binding: FragmentListBinding? = null
@@ -39,7 +43,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
         /** Inicializamos el recycler y el adapter **/
-        adapter = ContactAdapter(emptyList())
+        val adapter = ContactAdapter {contacto -> navigateTo(contacto)}
         binding.recycler.adapter = adapter
 
         /** Observamos los cambios que se producen en el ViewModel esperando para ser modificados en los XML **/
@@ -49,6 +53,12 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun navigateTo(contact: Contact) {
+        findNavController().navigate(
+            R.id.action_nav_home_to_detailFragment, bundleOf(DetailFragment.CONTACTO_SELECCIONADO to contact)
+        )
     }
 
     override fun onDestroyView() {

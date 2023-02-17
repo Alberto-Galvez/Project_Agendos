@@ -47,4 +47,6 @@
     <string name="todo">TODO</string>
     <string name="login_account">Ingrese su correo electronico y contraseña</string>
     <string name="create_contact">Añadir contacto</string>
+    <string name="image">Imagen</string>
+    <string name="mail">Email</string>
 </resources>

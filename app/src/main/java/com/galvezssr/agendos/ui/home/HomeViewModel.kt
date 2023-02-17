@@ -16,7 +16,6 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
     // Recycler del Fragment
     private val _listaResultante = MutableLiveData<List<Contact>>(emptyList())
 
-
     ////////////////////////////////////////////////////
     // INCIALIZADOR ////////////////////////////////////
     ////////////////////////////////////////////////////
@@ -33,6 +32,7 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
             _listaResultante.postValue(listaContactos)
         }
     }
+
 
     ////////////////////////////////////////////////////
     // GETTERS /////////////////////////////////////////
