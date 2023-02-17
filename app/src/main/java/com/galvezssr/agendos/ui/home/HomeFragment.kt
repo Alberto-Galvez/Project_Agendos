@@ -55,6 +55,8 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    /** Esta funcion navegara hacia el DetailFragment cuando sea llamada, recibe por parametro un contacto,
+     * que establecera en la variable estatica de la clase DetailFragment **/
     fun navigateTo(contact: Contact) {
         findNavController().navigate(
             R.id.action_nav_home_to_detailFragment, bundleOf(DetailFragment.CONTACTO_SELECCIONADO to contact)

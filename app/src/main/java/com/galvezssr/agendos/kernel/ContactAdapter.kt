@@ -13,6 +13,8 @@ class ContactAdapter(val listener: (Contact) -> Unit): RecyclerView.Adapter<Cont
     // VARIABLES ///////////////////////////////////////
     ////////////////////////////////////////////////////
 
+    /** Ahora, en vez de que el adapter reciba una lista de contactos vacia, tiene como parametro un contacto,
+     * que sera el listener de cada contacto, mientras que la lista vacia la inicializaremos en el propio adapter **/
     var contactos = emptyList<Contact>()
 
     ////////////////////////////////////////////////////
@@ -31,6 +33,8 @@ class ContactAdapter(val listener: (Contact) -> Unit): RecyclerView.Adapter<Cont
         holder.nombre.text = contacto.nombre
         holder.telefono.text = contacto.telefono
 
+        /** Aqui creamos un evento de escucha por cada contacto, en el que si se pulsa, enviara al HomeFragment
+         * el contacto que se ha pulsado, y alli, navegaremos hacia al DetailFragment **/
         holder.itemView.setOnClickListener {
             listener(contacto)
         }
