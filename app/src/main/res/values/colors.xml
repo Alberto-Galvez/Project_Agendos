@@ -16,5 +16,6 @@
     <color name="grey">#707070</color>
     <color name="brown">#500202</color>
     <color name="soft_brown">#8A0000</color>
+    <color name="red">#FF0000</color>
     <color name="yellow">#FBBD03</color>
 </resources>

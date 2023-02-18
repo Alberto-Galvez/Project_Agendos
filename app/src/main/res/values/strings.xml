@@ -2,14 +2,14 @@
     <string name="user">Usuario</string>
     <string name="enter">Entrar</string>
     <string name="startLogin">Ingrese su usuario y contraseña</string>
-    <string name="name">Nombre</string>
+    <string name="name">Nombre:</string>
     <string name="nickname">Apodo</string>
     <string name="contact">Imagen Contacto</string>
-    <string name="phone">Teléfono</string>
+    <string name="phone">Teléfono:</string>
     <string name="create">Crear</string>
     <string name="createUser">¿No tienes un usuario? ¡Creese uno ahora!</string>
     <string name="createNewUser">Introduzca un nombre de usuario y una contraseña</string>
-    <string name="description">Descripción</string>
+    <string name="description">Descripción:</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="lorem2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar neque laoreet suspendisse interdum consectetur. Sed ullamcorper morbi tincidunt ornare massa eget. Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque.</string>
     <string name="call">Llamar</string>
@@ -32,8 +32,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="email">Correo Electrónico</string>
-    <string name="password">Contraseña</string>
+    <string name="email">Correo Electrónico:</string>
+    <string name="password">Contraseña:</string>
     <string name="acceso">Acceso</string>
     <string name="registro">Registro</string>
     <string name="agendos_description">Agendos, tu agenda dinamica</string>
@@ -49,4 +49,5 @@
     <string name="create_contact">Añadir contacto</string>
     <string name="image">Imagen</string>
     <string name="mail">Email</string>
+    <string name="delete_contact">Borrar Contacto</string>
 </resources>

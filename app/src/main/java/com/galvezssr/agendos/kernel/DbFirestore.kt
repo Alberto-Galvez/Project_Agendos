@@ -2,12 +2,14 @@ package com.galvezssr.agendos.kernel
 
 import androidx.appcompat.app.AppCompatActivity
 import com.galvezssr.agendos.ui.showAlert
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.snapshots
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+//import com.google.firebase.firestore.Query
+//import com.google.firebase.firestore.ktx.snapshots
+//import kotlinx.coroutines.flow.Flow
+//import kotlinx.coroutines.flow.map
 
 object DbFirestore {
 
@@ -24,6 +26,8 @@ object DbFirestore {
 
     private fun getBBDD(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    fun getUsuarioActual(): String = Firebase.auth.currentUser?.email!!
+
     /** Obtenemos todos los contactos del usuario actual **/
     suspend fun getContactsFromUser(email: String): List<Contact> {
         val bbdd = getBBDD()
@@ -38,8 +42,8 @@ object DbFirestore {
         return contactos
     }
 
-    // Crear un objeto usuario para poder añadirse a la BBDD
-    fun createUser(user: User, app: AppCompatActivity) {
+    /** Crear un objeto usuario para poder añadirse a la BBDD **/
+     fun createUser(user: User, app: AppCompatActivity) {
         val bbdd = getBBDD()
         val userMap = hashMapOf(
             "nombre" to user.nombre,
@@ -59,6 +63,7 @@ object DbFirestore {
         }
     }
 
+    /** Creamos un objeto contacto al que lo añadimos a la BBDD **/
     fun createContact(contact: Contact, usuarioActual: String, app: AppCompatActivity) {
         val bbdd = getBBDD()
         val contactMap = hashMapOf(
@@ -79,12 +84,24 @@ object DbFirestore {
             }
     }
 
-    fun getFlow(usuarioActual: String): Flow<List<Contact>> {
-        return FirebaseFirestore.getInstance()
-            .collection(USER_COLECCTION).document(usuarioActual).collection(CONTACT_COLECCTION)
-            .orderBy("nombre", Query.Direction.DESCENDING).snapshots().map {
-                it.toObjects(Contact::class.java)
-            }
+    fun deleteContact(contact: Contact, usuarioActual: String, app: AppCompatActivity) {
+        val bbdd = getBBDD()
+
+        bbdd.collection(USER_COLECCTION).document(usuarioActual).collection(CONTACT_COLECCTION).document(contact.telefono).delete().addOnCompleteListener {
+
+            if (it.isSuccessful)
+                app.showAlert("Info", "Contacto eliminado de la cuenta: $usuarioActual")
+            else
+                app.showAlert("Error", "Se ha producido un error al borrar el contacto")
+        }
     }
+
+//    fun getFlow(usuarioActual: String): Flow<List<Contact>> {
+//        return FirebaseFirestore.getInstance()
+//            .collection(USER_COLECCTION).document(usuarioActual).collection(CONTACT_COLECCTION)
+//            .orderBy("nombre", Query.Direction.DESCENDING).snapshots().map {
+//                it.toObjects(Contact::class.java)
+//            }
+//    }
 
 }

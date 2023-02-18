@@ -1,4 +1,4 @@
-package com.galvezssr.agendos.ui.home
+package com.galvezssr.agendos.ui.main
 
 import androidx.lifecycle.*
 import com.galvezssr.agendos.kernel.Contact
@@ -42,7 +42,7 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
 }
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(private val usuarioActual: String): ViewModelProvider.Factory{
+class MainViewModelFactory(private val usuarioActual: String): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(usuarioActual) as T
     }

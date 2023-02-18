@@ -20,6 +20,7 @@ class CreateContactFragment : Fragment() {
     private lateinit var viewModel: CreateContactViewModel
     private lateinit var app: AppCompatActivity
 
+    private lateinit var usuarioActual: String
     private var _binding: FragmentCreateContactBinding? = null
     private val binding get() = _binding!!
 
@@ -31,10 +32,10 @@ class CreateContactFragment : Fragment() {
         _binding = FragmentCreateContactBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[CreateContactViewModel::class.java]
         app = (requireActivity() as AppCompatActivity)
+        val root: View = binding.root
 
         /** Recibimos del intent del MainActivity el campo Email **/
-        val usuarioActual = app.intent.extras!!.getString("email")
-        val root: View = binding.root
+        usuarioActual = app.intent.extras!!.getString("email")!!
 
         binding.boton.setOnClickListener {
             if (binding.campoNombre.text.isNotEmpty() && binding.campoTelefono.text.isNotEmpty()
@@ -48,7 +49,7 @@ class CreateContactFragment : Fragment() {
                 val contact = Contact(nombre, telefono, email, descripcion)
 
                 /** Llamamos al viewModel para crear el contacto sobre el usuario actual **/
-                viewModel.createContact(contact, usuarioActual!!, app)
+                viewModel.createContact(contact, usuarioActual, app)
 
             } else
                 app.showEmptyToast()

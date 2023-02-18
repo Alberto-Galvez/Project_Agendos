@@ -16,6 +16,5 @@ fun AppCompatActivity.showAlert(code: String, text: String) {
     builder.setMessage(text)
     builder.setPositiveButton("Aceptar", null)
 
-    val dialog = builder.create()
-    dialog.show()
+    builder.create().show()
 }

@@ -12,9 +12,5 @@
             android:id="@+id/nav_create_contact"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_insert" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/common_full_open_on_phone"
-            android:title="@string/log_out"/>
     </group>
 </menu>

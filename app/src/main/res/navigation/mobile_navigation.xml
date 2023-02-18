@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.galvezssr.agendos.ui.home.HomeFragment"
+        android:name="com.galvezssr.agendos.ui.main.MainFragment"
         android:label="Lista de Contactos"
         tools:layout="@layout/fragment_list">
         <action
@@ -26,13 +26,8 @@
         tools:layout="@layout/fragment_create_contact" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.galvezssr.agendos.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/detailFragment"
-        android:name="com.galvezssr.agendos.ui.detailFragment.DetailFragment"
+        android:name="com.galvezssr.agendos.ui.detail.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail"/>
 </navigation>
