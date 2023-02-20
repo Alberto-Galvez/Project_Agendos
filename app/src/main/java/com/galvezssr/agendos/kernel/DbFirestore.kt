@@ -5,11 +5,10 @@ import com.galvezssr.agendos.ui.showAlert
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
-//import com.google.firebase.firestore.Query
-//import com.google.firebase.firestore.ktx.snapshots
-//import kotlinx.coroutines.flow.Flow
-//import kotlinx.coroutines.flow.map
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.snapshots
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 object DbFirestore {
 
@@ -29,17 +28,25 @@ object DbFirestore {
     fun getUsuarioActual(): String = Firebase.auth.currentUser?.email!!
 
     /** Obtenemos todos los contactos del usuario actual **/
-    suspend fun getContactsFromUser(email: String): List<Contact> {
-        val bbdd = getBBDD()
-        val instancia = bbdd.collection(USER_COLECCTION).document(email).collection(CONTACT_COLECCTION).get().await()
-        val contactos = mutableListOf<Contact>()
+//    suspend fun getContactsFromUser(email: String): List<Contact> {
+//        val bbdd = getBBDD()
+//        val instancia = bbdd.collection(USER_COLECCTION).document(email).collection(CONTACT_COLECCTION).get().await()
+//        val contactos = mutableListOf<Contact>()
+//
+//        for (documento in instancia) {
+//            val contacto = documento.toObject(Contact::class.java)
+//            contactos.add(contacto)
+//        }
+//
+//        return contactos
+//    }
 
-        for (documento in instancia) {
-            val contacto = documento.toObject(Contact::class.java)
-            contactos.add(contacto)
-        }
-
-        return contactos
+    fun getFlow(usuarioActual: String): Flow<List<Contact>> {
+        return FirebaseFirestore.getInstance()
+            .collection(USER_COLECCTION).document(usuarioActual).collection(CONTACT_COLECCTION)
+            .orderBy("nombre", Query.Direction.DESCENDING).snapshots().map {
+                it.toObjects(Contact::class.java)
+            }
     }
 
     /** Crear un objeto usuario para poder añadirse a la BBDD **/
@@ -95,13 +102,4 @@ object DbFirestore {
                 app.showAlert("Error", "Se ha producido un error al borrar el contacto")
         }
     }
-
-//    fun getFlow(usuarioActual: String): Flow<List<Contact>> {
-//        return FirebaseFirestore.getInstance()
-//            .collection(USER_COLECCTION).document(usuarioActual).collection(CONTACT_COLECCTION)
-//            .orderBy("nombre", Query.Direction.DESCENDING).snapshots().map {
-//                it.toObjects(Contact::class.java)
-//            }
-//    }
-
 }

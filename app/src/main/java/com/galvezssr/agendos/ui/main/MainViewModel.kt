@@ -3,6 +3,7 @@ package com.galvezssr.agendos.ui.main
 import androidx.lifecycle.*
 import com.galvezssr.agendos.kernel.Contact
 import com.galvezssr.agendos.kernel.DbFirestore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(usuarioActual: String) : ViewModel() {
@@ -11,10 +12,10 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
     // VARIABLES ///////////////////////////////////////
     ////////////////////////////////////////////////////
 
-    private lateinit var listaContactos: List<Contact>
+    private lateinit var listaContactos: Flow<List<Contact>>
 
     // Recycler del Fragment
-    private val _listaResultante = MutableLiveData<List<Contact>>(emptyList())
+    private val _listaResultante = MutableLiveData<Flow<List<Contact>>>()
 
     ////////////////////////////////////////////////////
     // INCIALIZADOR ////////////////////////////////////
@@ -28,7 +29,7 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
         viewModelScope.launch {
 
             /** Obtenemos la lista de contactos de la BBDD segun el usuario con el que estemos logueados **/
-            listaContactos = DbFirestore.getContactsFromUser(usuarioActual)
+            listaContactos = DbFirestore.getFlow(usuarioActual)
             _listaResultante.postValue(listaContactos)
         }
     }
@@ -38,7 +39,7 @@ class HomeViewModel(usuarioActual: String) : ViewModel() {
     // GETTERS /////////////////////////////////////////
     ////////////////////////////////////////////////////
 
-    fun getListaResultante(): LiveData<List<Contact>> = _listaResultante
+    fun getListaContactos(): LiveData<Flow<List<Contact>>> = _listaResultante
 }
 
 @Suppress("UNCHECKED_CAST")
